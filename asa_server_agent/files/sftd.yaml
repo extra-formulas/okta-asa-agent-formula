@@ -1,0 +1,19 @@
+{% set server_config = salt['pillar.get']('asa_server_agent:server_config', {}).items() %}
+
+{%- if grains['host'] is defined %}
+  {%- set host_name = grains['host']|replace(".corp.modmed.com", "") %}
+{%- else %}
+  {%- set host_name = "" %}
+{%- endif %}
+
+{% if server_config is defined %}
+  {% for asa_server, asa_server_config in server_config  %}
+    {% if asa_server == host_name %}
+      {% if asa_server_config is defined %}
+        {% for attribute, value in asa_server_config.items()  %}
+{{ attribute }}: {{ value }}
+        {% endfor %}
+      {% endif %}
+    {% endif %}
+  {% endfor %}
+{% endif %}

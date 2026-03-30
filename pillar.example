@@ -1,0 +1,10 @@
+asa_server_agent:
+  use: True
+  common_config:
+    enrollment_token: <ASA Project Enrollment Token goes here.>
+
+  server_config:
+    server-name-1:
+      AccessAddress: <public_ip_address_to_access_server>
+      Bastion: <names_of_bastion_to_connect_to_server_by_default>
+      AltNames: ["service1", "service1.example.com"]
